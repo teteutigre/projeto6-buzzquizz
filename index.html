@@ -16,35 +16,67 @@
         <h1>BuzzQuizz</h1>
     </div>
     <div class="homepage">
-        <div class="titulo">
-            <h2>Seus Quizzes</h2> botão +
-        </div>
-        <div class="quizz">
-            <div>
-                <img src="" alt="quizz1" />
-                <h4>O quão Potterhead é você?</h4>
+        <div class="container-proprio">
+            <div class="titulo">
+                <h2>Seus Quizzes</h2>
+                <ion-icon name="add-circle" onclick="criarQuizz()"></ion-icon>
             </div>
+            <div class="container-quizz">
+                <div class="quizz" onclick="carregarQuizz(this)" onclick="carregarQuizz(this)">
+                    <img src="./images/teste1.png" alt="quizz1" />
+                    <h4>O quão Potterhead é você?</h4>
+                </div>
 
-            <img src="" alt="quizz2">
+                <div class="quizz" onclick="carregarQuizz(this)">
+                    <img src="./images/teste1.png" alt="quizz2">
+                    <h4>O quão Potterhead é você?</h4>
+                </div>
+            </div>
         </div>
 
-        <div class="quizz vazio">
+
+        <div class="container-vazio">
             <h3>Você não criou nenhum <br> quizz ainda :(</h3>
-            <button>Criar Quizz</button>
+            <button onclick="criarQuizz()">Criar Quizz</button>
         </div>
 
-        <div class="titulo">
-            <h2>Todos os Quizzes</h2>
+
+        <div class="container-todos">
+            <div class="titulo">
+                <h2>Todos os Quizzes</h2>
+            </div>
+            <div class="container-quizz">
+                <div class="quizz" onclick="carregarQuizz(this)">
+                    <img src="./images/teste2.png" alt="quizz1">
+                    <h4>Acerte os personagens corretos dos Simpsons e prove seu amor!</h4>
+                </div>
+                <div class="quizz" onclick="carregarQuizz(this)">
+                    <img src="./images/teste2.png" alt="quizz1">
+                    <h4>Acerte os personagens corretos dos Simpsons e prove seu amor!</h4>
+                </div>
+                <div class="quizz" onclick="carregarQuizz(this)">
+                    <img src="./images/teste2.png" alt="quizz1">
+                    <h4>Acerte os personagens corretos dos Simpsons e prove seu amor!</h4>
+                </div>
+                <div class="quizz" onclick="carregarQuizz(this)">
+                    <img src="./images/teste2.png" alt="quizz1">
+                    <h4>Acerte os personagens corretos dos Simpsons e prove seu amor!</h4>
+                </div>
+                <div class="quizz" onclick="carregarQuizz(this)">
+                    <img src="./images/teste2.png" alt="quizz1">
+                    <h4>Acerte os personagens corretos dos Simpsons e prove seu amor!</h4>
+                </div>
+                <div class="quizz" onclick="carregarQuizz(this)">
+                    <img src="./images/teste2.png" alt="quizz1">
+                    <h4>Acerte os personagens corretos dos Simpsons e prove seu amor!</h4>
+                </div>
+            </div>
         </div>
-        <div class="quizz todos">
-            <img src="" alt="quizz1">
-            <img src="" alt="quizz2">
-            <img src="" alt="quizz4">
-            <img src="" alt="quizz5">
-            <img src="" alt="quizz6">
-            <img src="" alt="quizz7">
-        </div>
+
     </div>
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>

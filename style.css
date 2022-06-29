@@ -22,38 +22,38 @@ body {
     box-shadow: 0px 4px 4px 0px rgb(0, 0, 0, 0.25);
     position: sticky;
     top: 0;
+    z-index: 1;
 }
 
 .homepage {
     margin: auto;
     width: 1050px;
-    background-color: aqua;
 }
 
 .homepage img {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%);
     border-radius: 5px;
-    width: 340px;
-    height: 181px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%), url(image.png);
-    position: relative;
 }
 
 h4 {
     color: #FFFFFF;
     font-size: 19px;
+    width: 301px;
     position: absolute;
     left: 17px;
     bottom: 7px;
-}
-
-.titulo:first-of-type {
-    margin-top: calc(69px + 69px);
-    background-color: blue;
+    line-height: 22px;
 }
 
 .titulo {
-    margin-top: 48px;
-    background-color: #EC362D;
+    display: flex;
+    align-items: center;
+}
+
+.titulo ion-icon {
+    color: #EC362D;
+    font-size: 30px;
+    margin-left: 17px;
 }
 
 h2 {
@@ -61,32 +61,37 @@ h2 {
     font-size: 20px;
 }
 
-.quizz {
-    border-radius: 5px;
-    margin-top: 13px;
+.container-quizz {
     display: flex;
-    background-color: chocolate;
+    flex-wrap: wrap;
     gap: 12px 15px;
+    margin-top: 12px;
 }
 
-.quizz.vazio {
+.quizz {
+    width: 340px;
+    height: 181px;
+    position: relative;
+}
+
+.container-proprio {
+    margin-top: 69px;
+    margin-bottom: 48px;
+}
+
+.container-vazio {
     height: 181px;
     border: 1px dashed #D4D4D4;
+    margin: 77px 0;
     border-radius: 5px;
-    margin-top: calc(77px + 69px);
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-evenly;
     text-align: center;
-    gap: 0px;
-    background-color: darkgoldenrod;
 }
 
-.quizz.todos {
-    flex-wrap: wrap;
-}
-
-.quizz button {
+.container-vazio button {
     background-color: #FAFAFA;
     font-size: 21px;
     color: #EC362D;
@@ -99,4 +104,27 @@ h2 {
 h3 {
     font-size: 20px;
     color: #B9B9B9;
+}
+
+@media (max-width: 1100px) {
+    .homepage {
+        width: 340px;
+    }
+
+    .container-proprio {
+        margin-top: 38px 0;
+    }
+
+    .container-vazio {
+        margin: 31px 0;
+    }
+
+    .container-quizz {
+        gap: 14px;
+        margin-top: 12px;
+    }
+
+    .titulo {
+        justify-content: space-between;
+    }
 }
