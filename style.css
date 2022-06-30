@@ -302,3 +302,139 @@ input::placeholder {
   color: #fff5f4;
   background-color: #ec362d;
 }
+
+
+
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;1,100;1,300;1,400;1,500&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #E5E5E5;
+    font-weight: 400;
+}
+
+.top-bar {
+    background-color: #EC362D;
+    color: #FFFFFF;
+    height: 69px;
+    font-size: 37px;
+    font-weight: 700;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 4px 0px rgb(0, 0, 0, 0.25);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.homepage {
+    margin: auto;
+    width: 1050px;
+}
+
+.homepage img {
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%);
+    border-radius: 5px;
+    width: 340px;
+    height: 181px;
+}
+
+h4 {
+    color: #FFFFFF;
+    font-size: 19px;
+    width: 301px;
+    position: absolute;
+    left: 17px;
+    bottom: 7px;
+    line-height: 22px;
+}
+
+.titulo {
+    display: flex;
+    align-items: center;
+}
+
+.titulo ion-icon {
+    color: #EC362D;
+    font-size: 30px;
+    margin-left: 17px;
+}
+
+h2 {
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.container-quizz {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px 15px;
+    margin-top: 12px;
+}
+
+.quizz {
+    width: 340px;
+    height: 181px;
+    position: relative;
+}
+
+.container.proprio {
+    margin-top: 69px;
+    margin-bottom: 48px;
+}
+
+.container-vazio {
+    height: 181px;
+    border: 1px dashed #D4D4D4;
+    margin: 77px 0;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    text-align: center;
+}
+
+.container-vazio button {
+    background-color: #FAFAFA;
+    font-size: 21px;
+    color: #EC362D;
+    border-radius: 50px;
+    border: 1px dashed #EC362D;
+    width: 151px;
+    height: 40px;
+}
+
+h3 {
+    font-size: 20px;
+    color: #B9B9B9;
+}
+
+@media (max-width: 1100px) {
+    .homepage {
+        width: 340px;
+    }
+
+    .container.proprio {
+        margin-top: 38px 0;
+    }
+
+    .container-vazio {
+        margin: 31px 0;
+    }
+
+    .container-quizz {
+        gap: 14px;
+        margin-top: 12px;
+    }
+
+    .titulo {
+        justify-content: space-between;
+    }
+}

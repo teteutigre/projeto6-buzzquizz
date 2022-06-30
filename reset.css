@@ -84,6 +84,7 @@ time,
 mark,
 audio,
 video {
+<<<<<<< HEAD
   margin: 0;
   padding: 0;
   border: 0;
@@ -91,6 +92,16 @@ video {
   font: inherit;
   vertical-align: baseline;
 }
+=======
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+
+>>>>>>> 6d3b11f5b9d71d0eb866f9baa0c9524fbbb20c2e
 /* HTML5 display-role reset for older browsers */
 article,
 aside,
@@ -103,6 +114,7 @@ hgroup,
 menu,
 nav,
 section {
+<<<<<<< HEAD
   display: block;
 }
 body {
@@ -116,10 +128,30 @@ blockquote,
 q {
   quotes: none;
 }
+=======
+    display: block;
+}
+
+body {
+    line-height: 1;
+}
+
+ol,
+ul {
+    list-style: none;
+}
+
+blockquote,
+q {
+    quotes: none;
+}
+
+>>>>>>> 6d3b11f5b9d71d0eb866f9baa0c9524fbbb20c2e
 blockquote:before,
 blockquote:after,
 q:before,
 q:after {
+<<<<<<< HEAD
   content: "";
   content: none;
 }
@@ -127,3 +159,13 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+=======
+    content: '';
+    content: none;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+>>>>>>> 6d3b11f5b9d71d0eb866f9baa0c9524fbbb20c2e
