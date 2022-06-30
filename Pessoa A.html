@@ -15,7 +15,7 @@
 </head>
 
 <body>
-    <div class="pagina-quizz">
+    <!--    <div class="pagina-quizz">
         <div class="topo">
             <div class="logo">
                 <h1>
@@ -114,31 +114,81 @@
                 <p>Voltar pra home</p>
             </div>
         </div>
+    </div> -->
+    <!--                                            desktop-8                                                                 -->
+    <div class="logo">
+        <h1>
+            BuzzQuizz
+        </h1>
     </div>
+    <div class="gaveta-desktop-8">
+        <div class="desktop-8">
+            <div>
+                <h2>Comece pelo começo</h2>
+                <div class="criando-quizz">
+                    <input class="titulo-quizz" placeholder="Título do seu quizz" type="">
+                    <input class="url-quizz" placeholder="URL da imagem do seu quizz" type="">
+                    <input class="quantidade-perguntas" placeholder="Quantidade de perguntas do quizz" type="">
+                    <input class="quantidade-niveis" placeholder="Quantidade de níveis do quizz" type="">
+                </div>
+            </div>
 
-
-
-    <div class="desktop-8">
-        <div class="logo">
-            <h1>
-                BuzzQuizz
-            </h1>
+            <button onclick="criarPerguntas()">
+                Prosseguir pra criar perguntas
+            </button>
         </div>
+    </div>
+    <!--                                            desktop-8                                                                 -->
 
-        <div>
-            <h2>Comece pelo começo</h2>
-            <div class="criando-quizz">
-                <input class="titulo-quizz" placeholder="Título do seu quizz" type="" name="ola">
-                <input class="url-quizz" placeholder="URL da imagem do seu quizz" type="">
-                <input class="quantidade-perguntas" placeholder="Quantidade de perguntas do quizz" type="">
-                <input class="quantidade-niveis" placeholder="Quantidade de níveis do quizz" type="">
+    <!-- <div class="desktop-9">
+        <h1>Crie suas perguntas</h1>
+
+        <div class="barra-de-criacao">
+
+            <p>Pergunta 1</p>
+            <div>
+                <input class="texto-pergunta" type="text" placeholder="Texto da pergunta">
+                <input class="cor-pergunta" type="text" placeholder="Cor de fundo da pergunta">
+            </div>
+
+            <p>Resposta correta</p>
+            <div>
+                <div class="">
+                    <input class="reposta-correta" type="text" placeholder="Resposta correta">
+                    <input class="url-rc-img" type="text" placeholder="URL da imagem">
+                </div>
+            </div>
+
+            <p>Respostas incorretas</p>
+            <div>
+                <div>
+                    <input class="reposta-incorreta" type="text" placeholder="Resposta incorreta 1">
+                    <input class="url-ri-img1" type="text" placeholder="URL da imagem 1">
+                </div>
+
+                <div>
+                    <input class="reposta-incorreta2" type="text" placeholder="Resposta incorreta 2">
+                    <input class="url-ri-img2" type="text" placeholder="URL da imagem 2">
+                </div>
+
+                <div>
+                    <input class="reposta-incorreta3" type="text" placeholder="Resposta incorreta 3">
+                    <input class="url-ri-img3" type="text" placeholder="URL da imagem 3">
+                </div>
             </div>
         </div>
 
-        <button onclick="proseguirParaCriar()">
-            Prosseguir pra criar perguntas
+        <div class="add-barra-de-cricao">
+            <div class="pre-barra-de-criacao">
+                <p>Pergunta 2</p>
+                <img onclick="barraDeCriacao(this)" src="/imgs/Vector.svg" alt="">
+            </div>
+        </div>
+
+        <button onclick="criarNiveis()">
+            Prosseguir pra criar níveis
         </button>
-    </div>
+    </div> -->
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="/script.js"></script>

@@ -50,7 +50,7 @@ function pegarQuizz(element) {
     const promise = axios.get(`${servidor}/${quizzID}`);
     promise.then((resposta) => {
         quizzAtivo = resposta.data;
-        console.log(resposta.data);
+        console.log(quizzAtivo);
         telaQuizz();
     })
     promise.catch((erro) => console.log(erro));
