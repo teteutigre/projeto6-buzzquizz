@@ -1,23 +1,24 @@
-/* const tituloQuizz = document.querySelector(".titulo-quizz").value;
-const urlQuizz = document.querySelector(".url-quizz").value;
-const quantidadePerguntas = document.querySelector(
-  ".quantidade-perguntas"
-).value;
-const quantidadeNiveis = document.querySelector(".quantidade-niveis").value; */
+let tituloQuizz = document.querySelector(".titulo-quizz").value;
+let urlQuizz = document.querySelector(".url-quizz").value;
+let quantidadePerguntas = document.querySelector(".quantidade-perguntas").value;
+let quantidadeNiveis = document.querySelector(".quantidade-niveis").value;
+
+/* let textoPergunta = document.querySelector(".texto-pergunta").value;
+let corPergunta = document.querySelector(".cor-pergunta").value;
+let repostaCorretas = document.querySelector(".reposta-correta").value;
+let urlRcImg = document.querySelector(".url-rc-img").value; */
 
 function criarPerguntas() {
-  /* const tituloQuizz = document.querySelector(".titulo-quizz").value;
-  const urlQuizz = document.querySelector(".url-quizz").value;
-  const quantidadePerguntas = document.querySelector(
-    ".quantidade-perguntas"
-  ).value;
-  const quantidadeNiveis = document.querySelector(".quantidade-niveis").value; */
+  /* tituloQuizz = document.querySelector(".titulo-quizz").value;
+  urlQuizz = document.querySelector(".url-quizz").value;
+  quantidadePerguntas = document.querySelector(".quantidade-perguntas").value;
+  quantidadeNiveis = document.querySelector(".quantidade-niveis").value; */
 
-  const tituloQuizz = "Naruto nao e tao legal";
-  const urlQuizz =
+  tituloQuizz = "Naruto nao e tao legal";
+  urlQuizz =
     "https://br.web.img2.acsta.net/c_310_420/pictures/15/07/14/23/52/533631.jpg";
-  const quantidadePerguntas = "3";
-  const quantidadeNiveis = "2";
+  quantidadePerguntas = "3";
+  quantidadeNiveis = "2";
 
   if (tituloQuizz.length < 20) {
     alert("O mínimo são 20 caracteres");
@@ -36,9 +37,13 @@ function criarPerguntas() {
   } else {
     const add = document.querySelector(".gaveta-desktop-8");
     add.classList.add("escoder");
+    desktop9();
+  }
+}
 
-    const desktop9 = document.querySelector("body");
-    desktop9.innerHTML += `<div class="desktop-9">
+function desktop9() {
+  const desktop9 = document.querySelector("body");
+  desktop9.innerHTML += `<div class="desktop-9">
         <h1>Crie suas perguntas</h1>
 
         <div class="barra-de-criacao">
@@ -87,7 +92,6 @@ function criarPerguntas() {
             Prosseguir pra criar níveis
         </button>
     </div>`;
-  }
 }
 
 function imagem(url) {
@@ -96,10 +100,11 @@ function imagem(url) {
 /*                 desktop-8                          */
 
 function criarNiveis() {
-  const textoPergunta = document.querySelector(".texto-pergunta").value;
-  const corPergunta = document.querySelector(".cor-pergunta").value;
-  const repostaCorretas = document.querySelector(".reposta-correta").value;
-  const urlRcImg = document.querySelector(".url-rc-img").value;
+  console.log(urlQuizz);
+  let textoPergunta = document.querySelector(".texto-pergunta").value;
+  let corPergunta = document.querySelector(".cor-pergunta").value;
+  let repostaCorretas = document.querySelector(".reposta-correta").value;
+  let urlRcImg = document.querySelector(".url-rc-img").value;
 
   if (textoPergunta.length < 20) {
     alert("O mínimo são 20 caracteres");
@@ -128,9 +133,7 @@ function barraDeCriacao(elemento) {
   pai.classList.add("escoder");
   pai.classList.remove("pre-barra-de-criacao");
 
-  console.log(pai);
-  const adicionando = document.querySelector(".add-barra-de-cricao");
-  adicionando.innerHTML += `
+  document.querySelector(".add-barra-de-cricao").innerHTML += `
         <div class="barra-de-criacao">
             <p>Pergunta 2</p>
             <div>
