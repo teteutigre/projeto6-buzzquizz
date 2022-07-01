@@ -340,7 +340,8 @@ input::placeholder {
   background: #ec362d;
   border-radius: 15px;
 
-  margin-top: 81px;
+  margin-top: 59px;
+  margin-bottom: 200px;
 
   border: none;
 
@@ -387,6 +388,8 @@ input::placeholder {
   justify-content: space-between;
   align-items: center;
 
+  margin-bottom: 22px;
+
   background: #ffffff;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
 }
@@ -394,4 +397,8 @@ input::placeholder {
 .pre-barra-de-criacao img {
   margin-right: 17px;
   margin-top: 12px;
+}
+
+.escondido {
+  display: none;
 }

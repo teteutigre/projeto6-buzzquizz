@@ -2,11 +2,11 @@ let tituloQuizz = document.querySelector(".titulo-quizz").value;
 let urlQuizz = document.querySelector(".url-quizz").value;
 let quantidadePerguntas = document.querySelector(".quantidade-perguntas").value;
 let quantidadeNiveis = document.querySelector(".quantidade-niveis").value;
+let i;
 
-/* let textoPergunta = document.querySelector(".texto-pergunta").value;
-let corPergunta = document.querySelector(".cor-pergunta").value;
-let repostaCorretas = document.querySelector(".reposta-correta").value;
-let urlRcImg = document.querySelector(".url-rc-img").value; */
+function imagem(url) {
+  return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
+}
 
 function criarPerguntas() {
   /* tituloQuizz = document.querySelector(".titulo-quizz").value;
@@ -17,7 +17,7 @@ function criarPerguntas() {
   tituloQuizz = "Naruto nao e tao legal";
   urlQuizz =
     "https://br.web.img2.acsta.net/c_310_420/pictures/15/07/14/23/52/533631.jpg";
-  quantidadePerguntas = "3";
+  quantidadePerguntas = "4";
   quantidadeNiveis = "2";
 
   if (tituloQuizz.length < 20) {
@@ -45,126 +45,106 @@ function desktop9() {
   const desktop9 = document.querySelector("body");
   desktop9.innerHTML += `<div class="desktop-9">
         <h1>Crie suas perguntas</h1>
+        </div>`;
 
-        <div class="barra-de-criacao">
-
-            <p>Pergunta 1</p>
-            <div>
-                <input class="texto-pergunta" type="text" placeholder="Texto da pergunta">
-                <input class="cor-pergunta" type="text" placeholder="Cor de fundo da pergunta">
-            </div>
-
-            <p>Resposta correta</p>
-            <div>
-                <div class="">
-                    <input class="reposta-correta" type="text" placeholder="Resposta correta">
-                    <input class="url-rc-img" type="text" placeholder="URL da imagem">
+  for (i = 0; quantidadePerguntas > i; i++) {
+    const addPerguntas = document.querySelector(".desktop-9");
+    addPerguntas.innerHTML += `
+            <div class="add-barra-de-cricao">
+                <div class="pre-barra-de-criacao">
+                    <p>Pergunta ${i + 1}</p>
+                    <img onclick="barraDeCriacao(this)" src="/imgs/Vector.svg" alt="">
                 </div>
-            </div>
-
-            <p>Respostas incorretas</p>
-            <div>
-                <div>
-                    <input class="reposta-incorreta" type="text" placeholder="Resposta incorreta 1">
-                    <input class="url-ri-img1" type="text" placeholder="URL da imagem 1">
-                </div>
-
-                <div>
-                    <input class="reposta-incorreta2" type="text" placeholder="Resposta incorreta 2">
-                    <input class="url-ri-img2" type="text" placeholder="URL da imagem 2">
-                </div>
-
-                <div>
-                    <input class="reposta-incorreta3" type="text" placeholder="Resposta incorreta 3">
-                    <input class="url-ri-img3" type="text" placeholder="URL da imagem 3">
-                </div>
-            </div>
-        </div>
-
-        <div class="add-barra-de-cricao">
-            <div class="pre-barra-de-criacao">
-                <p>Pergunta 2</p>
-                <img onclick="barraDeCriacao(this)" src="/imgs/Vector.svg" alt="">
-            </div>
-        </div>
-
-        <button onclick="criarNiveis()">
-            Prosseguir pra criar níveis
-        </button>
-    </div>`;
+            </div>`;
+  }
+  document.querySelector(
+    ".desktop-9"
+  ).innerHTML += `<button onclick="criarNiveis()">Prosseguir pra criar níveis</button>`;
 }
 
-function imagem(url) {
-  return /\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
-}
 /*                 desktop-8                          */
 
-function criarNiveis() {
-  console.log(urlQuizz);
-  let textoPergunta = document.querySelector(".texto-pergunta").value;
-  let corPergunta = document.querySelector(".cor-pergunta").value;
-  let repostaCorretas = document.querySelector(".reposta-correta").value;
-  let urlRcImg = document.querySelector(".url-rc-img").value;
+function barraDeCriacao(elemento) {
+  const escoderElemento = elemento.parentNode;
+  escoderElemento.classList.add("escoder");
+  escoderElemento.classList.remove("pre-barra-de-criacao");
 
-  if (textoPergunta.length < 20) {
-    alert("O mínimo são 20 caracteres");
-  } else if (corPergunta[0] != "#") {
-    alert(`Deve começar com "#" `);
-  } else if (
-    !corPergunta.toUpperCase().indexOf("A") ||
-    !corPergunta.toUpperCase().indexOf("B") ||
-    !corPergunta.toUpperCase().indexOf("C") ||
-    !corPergunta.toUpperCase().indexOf("D") ||
-    !corPergunta.toUpperCase().indexOf("E") ||
-    !corPergunta.toUpperCase().indexOf("F")
-  ) {
-    alert("Digite uma cor em hexadecimal");
-  } else if (0 > Number(corPergunta) > 9 || corPergunta.length > 6) {
-    alert("Digite uma cor em hexadecimal");
-  } else if (repostaCorretas === "") {
-    alert("Digite a reposta correta");
-  } else if (!imagem(urlRcImg) && !urlRcImg.includes("https://")) {
-    alert("Coloque uma imagem em formato Url");
-  }
+  const pegaElemento = elemento.parentNode.parentNode;
+
+  const pegandoP = pegaElemento.querySelector("p").innerHTML;
+
+  pegaElemento.innerHTML += `
+            <div class="barra-de-criacao">
+                <p>Pergunta ${pegandoP.charAt(pegandoP.length - 1)}</p>
+                <div>
+                    <input class="texto-pergunta" type="text" placeholder="Texto da pergunta">
+                    <input class="cor-pergunta" type="text" placeholder="Cor de fundo da pergunta">
+                </div>
+
+                <p>Resposta correta</p>
+                <div>
+                    <div class="">
+                        <input class="reposta-correta" type="text" placeholder="Resposta correta">
+                        <input class="url-rc-img" type="text" placeholder="URL da imagem">
+                    </div>
+                </div>
+
+                <p>Respostas incorretas</p>
+                <div>
+                    <div>
+                        <input class="reposta-incorreta" type="text" placeholder="Resposta incorreta 1">
+                        <input class="url-ri-img" type="text" placeholder="URL da imagem 1">
+                    </div>
+
+                    <div>
+                        <input class="reposta-incorreta" type="text" placeholder="Resposta incorreta 2">
+                        <input class="url-ri-img" type="text" placeholder="URL da imagem 2">
+                    </div>
+
+                    <div>
+                        <input class="reposta-incorreta" type="text" placeholder="Resposta incorreta 3">
+                        <input class="url-ri-img" type="text" placeholder="URL da imagem 3">
+                    </div>
+                </div>
+            </div>`;
 }
 
-function barraDeCriacao(elemento) {
-  const pai = elemento.parentNode;
-  pai.classList.add("escoder");
-  pai.classList.remove("pre-barra-de-criacao");
+function criarNiveis() {
+  textoPergunta = document.querySelectorAll(".texto-pergunta");
+  corPergunta = document.querySelectorAll(".cor-pergunta");
+  repostaCorretas = document.querySelectorAll(".reposta-correta");
+  urlRcImg = document.querySelectorAll(".url-rc-img");
+  urlRiImg = document.querySelectorAll(".url-ri-img");
+  repostaIncorreta = document.querySelectorAll(".reposta-incorreta");
 
-  document.querySelector(".add-barra-de-cricao").innerHTML += `
-        <div class="barra-de-criacao">
-            <p>Pergunta 2</p>
-            <div>
-                <input class="texto-pergunta" type="text" placeholder="Texto da pergunta">
-                <input class="cor-pergunta" type="text" placeholder="Cor de fundo da pergunta">
-            </div>
+  Object.keys(textoPergunta).forEach((item) => {
+    const hexadecimalRc = corPergunta[item].value;
 
-            <p>Resposta correta</p>
-            <div>
-                <div class="">
-                    <input class="reposta-correta" type="text" placeholder="Resposta correta">
-                    <input class="url-rc-img" type="text" placeholder="URL da imagem">
-                </div>
-            </div>
+    const ValorurlRiImg = urlRiImg[item].value;
 
-            <p>Respostas incorretas</p>
-            <div>
-                <div>
-                    <input class="reposta-incorreta" type="text" placeholder="Resposta incorreta 1">
-                    <input class="url-ri-img1" type="text" placeholder="URL da imagem 1">
-                </div>
-
-                <div>
-                    <input class="reposta-incorreta2" type="text" placeholder="Resposta incorreta 2">
-                    <input class="url-ri-img2" type="text" placeholder="URL da imagem 2">
-                </div>
-
-                <div>
-                    <input class="reposta-incorreta3" type="text" placeholder="Resposta incorreta 3">
-                    <input class="url-ri-img3" type="text" placeholder="URL da imagem 3">
-                </div>
-            </div>
-        </div>`;
+    if (textoPergunta[item].value.length < 20) {
+      alert("O mínimo de uma pergunta são 20 caracteres");
+    } else if (hexadecimalRc[0] != "#") {
+      alert(`A cor deve começar com "#" `);
+    } else if (
+      Number(corPergunta[item].value) > 9 ||
+      corPergunta[item].value.length !== 6
+    ) {
+      alert("A cor deve ter no máximo 6 caracteres");
+    } else if (repostaCorretas[item].value === "") {
+      alert("Cada pergunta tem que a ver 1 resposta certa");
+    } else if (
+      !imagem(urlRcImg[item].value) &&
+      !urlRcImg[item].value.includes("https://")
+    ) {
+      alert("Coloque uma imagem em formato Url");
+    } else if (repostaIncorreta.value === "") {
+      alert("cada pergunta deve a ver pelo menos 1 resposta errada");
+    } else if (
+      !imagem(urlRiImg[item].value) &&
+      !urlRiImg[item].value.includes("https://")
+    ) {
+      alert(`Coloque uma imagem em formato Url`);
+    }
+  });
 }
