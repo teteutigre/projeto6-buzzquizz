@@ -1,7 +1,7 @@
-const tituloQuizz = document.querySelector(".tituloQuizz");
-const urlQuizz = document.querySelector(".url-quizz");
-const quantidadePerguntas = document.querySelector(".quantidade-perguntas");
-const quantidadeNiveis = document.querySelector(".quantidade-niveis");
+let tituloQuizz = document.querySelector(".tituloQuizz");
+let urlQuizz = document.querySelector(".url-quizz");
+let quantidadePerguntas = document.querySelector(".quantidade-perguntas");
+let quantidadeNiveis = document.querySelector(".quantidade-niveis");
 
 function proseguirParaCriar() {
     tituloQuizz = tituloQuizz.innerHTML
@@ -21,9 +21,10 @@ function proseguirParaCriar() {
 }
 
 
-// localStorage.setItem("id", "user");
-// const user = getItem("id");
-// localStorage.removeItem("id");
+
+//localStorage.setItem(`quizzProprio${localStorage.length}`,quizzCriado.id); 
+localStorage.getItem("id");
+localStorage.removeItem("id");
 let servidor = "https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes";
 let todosQuizz = [];
 let quizzID;
@@ -33,7 +34,7 @@ let embaralhamento = [];
 let numeroRespostas;
 
 
-const promise = axios.get(servidor);
+let promise = axios.get(servidor);
 promise.then((resposta) => {
     todosQuizz = resposta.data;
     telaInicial();
@@ -49,7 +50,7 @@ tela de criação de um quizz
 
 function pegarQuizz(element) {
     quizzID = element.querySelector('.todos .quizz img').alt
-    const promise = axios.get(`${servidor}/${quizzID}`);
+    promise = axios.get(`${servidor}/${quizzID}`);
     promise.then((resposta) => {
         quizzAtivo = resposta.data;
         telaQuizz();
@@ -129,39 +130,18 @@ function mostrarResultado() {
 
     <div class="home">
         <button>Reiniciar Quizz</button>
-        <p>Voltar pra home</p>
+        <button onclick="telaInicial()">Voltar pra home</button>
     </div>`
 } */
 
 function telaInicial() {
-    body.innerHTML = `
+    if (localStorage.length === 0) {
+        body.innerHTML = `
     <div class="top-bar">
         <h1>BuzzQuizz</h1>
     </div>
     <div class="main">
         <div class="homepage">
-            <div class="container proprio">
-                <div class="titulo">
-                    <h2>Seus Quizzes</h2>
-                    <ion-icon name="add-circle" onclick="telaCriarQuizz()"></ion-icon>
-                </div>
-                <div class="container-quizz proprio">
-                    <div class="quizz" onclick="pegarQuizz(this)" onclick="telaQuizz(this)">
-                        <img src="./images/teste1.png" alt="quizz1" />
-                        <h4>O quão Potterhead é você?</h4>
-                    </div>
-                    <div class="quizz" onclick="pegarQuizz(this)">
-                        <img src="./images/teste1.png" alt="quizz2">
-                        <h4>O quão Potterhead é você?</h4>
-                    </div>
-                    <div class="quizz" onclick="pegarQuizz(this)">
-                        <img src="./images/teste1.png" alt="quizz2">
-                        <h4>O quão Potterhead é você?</h4>
-                    </div>
-                </div>
-            </div>
-
-
             <div class="container-vazio">
                 <h3>Você não criou nenhum <br> quizz ainda :(</h3>
                 <button onclick="telaCriarQuizz()">Criar Quizz</button>
@@ -176,14 +156,55 @@ function telaInicial() {
             </div>
         </div >
     </div >`
+    } else {
+        //quizzesProprios();
+        body.innerHTML = `
+    <div class="top-bar">
+        <h1>BuzzQuizz</h1>
+    </div>
+    <div class="main">
+        <div class="homepage">
+            <div class="container proprio">
+                <div class="titulo">
+                    <h2>Seus Quizzes</h2>
+                    <ion-icon name="add-circle" onclick="telaCriarQuizz()"></ion-icon>
+                </div>
+                <div class="container-quizz proprio">
+                </div>
+            </div>
+
+            <div class="container todos">
+                <div class="titulo">
+                    <h2>Todos os Quizzes</h2>
+                </div>
+                <div class="container-quizz todos">
+                </div >
+            </div>
+        </div >
+    </div >`
+    }
     todosQuizzes();
+}
+
+function quizzesProprios() {
+    for (let i = 0; i < localStorage.length; i++) {
+        for (let j = 0; j < todosQuizz.length; j++) {
+            if (localStorage[i] === todosQuizz[j].id) {
+                document.querySelector('.container-quizz.proprio').innerHTML += `
+                <div class="quizz" onclick="pegarQuizz(this)">
+                <img src="${todosQuizz[j].image}" alt="${todosQuizz[j].id}"/>
+                <h4>${todosQuizz[j].title}</h4>
+                </div>`
+            }
+        }
+    }
 }
 
 function todosQuizzes() {
     for (const element of todosQuizz) {
         document.querySelector('.container-quizz.todos').innerHTML += `
             <div class="quizz" onclick="pegarQuizz(this)">
-            <img src="${element.image}" alt="${element.id}">
+            <img src="${element.image}" alt="${element.id}"/>
             <h4>${element.title}</h4>
             </div>`
     }
