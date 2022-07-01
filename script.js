@@ -27,8 +27,10 @@ function proseguirParaCriar() {
 let servidor = "https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes";
 let todosQuizz = [];
 let quizzID;
-let quizzAtivo;
+let quizzAtivo = [];
 const body = document.querySelector("body");
+let embaralhamento = [];
+let numeroRespostas;
 
 
 const promise = axios.get(servidor);
@@ -46,11 +48,10 @@ tela de criação de um quizz
 }
 
 function pegarQuizz(element) {
-    quizzID = element.querySelector('.todos .quizz img').alt // element.data.id; pegar ID do quizz clicado
+    quizzID = element.querySelector('.todos .quizz img').alt
     const promise = axios.get(`${servidor}/${quizzID}`);
     promise.then((resposta) => {
         quizzAtivo = resposta.data;
-        console.log(quizzAtivo);
         telaQuizz();
     })
     promise.catch((erro) => console.log(erro));
@@ -69,76 +70,68 @@ function telaQuizz() {
     
     <div class="main">
         <div class="telaQuizz">
-            <div class="quizz-quadro">
-                <div class="topo-quizz-1">
-                    <span>${quizzAtivo.questions[0].title}</span>
-                </div>
-                <div class="perguntas-img">
-                    <div class="resposta">
-                        <img src="${quizzAtivo.questions[0].answers[0].image}" alt="">
-                        <p>${quizzAtivo.questions[0].answers[0].text}</p>
-                    </div>
-                    <div class="resposta">
-                        <img src="${quizzAtivo.questions[0].answers[1].image}" alt="">
-                        <p>${quizzAtivo.questions[0].answers[1].text}</p>
-                    </div>
-                    <div class="resposta">
-                        <img src="${quizzAtivo.questions[0].answers[2].image}" alt="">
-                        <p>${quizzAtivo.questions[0].answers[2].text}</p>
-                    </div>
-                    <div class="resposta">
-                        <img src="${quizzAtivo.questions[0].answers[3].image}" alt="">
-                        <p>${quizzAtivo.questions[0].answers[3].text}</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="quizz-quadro">
-                <div class="topo-quizz-2">
-                    <span>${quizzAtivo.questions[2].title}</span>
-                </div>
-                <div class="perguntas-img">
-                    <div class="resposta">
-                        <img src="${quizzAtivo.questions[1].answers[0].image}" alt="">
-                        <p>${quizzAtivo.questions[1].answers[0].text}</p>
-                    </div>
-                    <div class="resposta">
-                        <img src="${quizzAtivo.questions[1].answers[1].image}" alt="">
-                        <p>${quizzAtivo.questions[1].answers[1].text}</p>
-                    </div>
-                    <div class="resposta">
-                        <img src="${quizzAtivo.questions[1].answers[2].image}" alt="">
-                        <p>${quizzAtivo.questions[1].answers[2].text}</p>
-                    </div>
-                    <div class="resposta">
-                        <img src="${quizzAtivo.questions[1].answers[3].image}" alt="">
-                        <p>${quizzAtivo.questions[1].answers[3].text}</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="resultado">
-                <div class="topo-resultado">
-                    <span>88% de acerto: ${quizzAtivo.levels[0].title}</span>
-                </div>
-
-                <div class="resultado-msg">
-                    <div>
-                        <img src="${quizzAtivo.levels[0].image}" alt="">
-                    </div>
-
-                    <h3>${quizzAtivo.levels[0].text}</h3>
-
-                </div>
-            </div>
-            
-            <div class="home">
-                <button>Reiniciar Quizz</button>
-                <p>Voltar pra home</p>
-            </div>
         </div>
     </div>`
+    inserirPergunta();
 }
+
+function inserirPergunta() {
+    for (let i = 0; i < quizzAtivo.questions.length; i++) {
+        document.querySelector('.telaQuizz').innerHTML += `
+        <div class="quizz-quadro p${i + 1}">
+            <div class="topo-quizz p${i + 1}">
+                <span>${quizzAtivo.questions[i].title}</span>
+            </div>
+            <div class="perguntas-img p${i + 1}">
+            </div>
+        </div>`
+        for (const element of quizzAtivo.questions[i].answers) {
+            embaralhamento.push(`
+                <div class="resposta">
+                    <img src="${element.image}" alt="">
+                    <p>${element.text}</p>
+                </div>`);
+        }
+        embaralhamento.sort(aleatorio);
+        for (const element of embaralhamento) {
+            document.querySelector(`.perguntas-img.p${i + 1}`).innerHTML += element;
+        }
+        embaralhamento = [];
+    }
+}
+
+function aleatorio() {
+    return Math.random() - 0.5;
+}
+
+/* PRECISA SER FINALIZADO
+if (numeroRespostas === quizzAtivo.questions.length) {
+    "conferir numero de acertos vs niveis e determinar qual exibir"
+    mostrarResultado();
+}
+
+function mostrarResultado() {
+    body.innerHTML += `
+    <div class="resultado">
+        <div class="topo-resultado">
+            <span>88% de acerto: ${quizzAtivo.levels[0].title}</span>
+        </div>
+
+        <div class="resultado-msg">
+            <div>
+                <img src="${quizzAtivo.levels[0].image}" alt="">
+            </div>
+
+            <h3>${quizzAtivo.levels[0].text}</h3>
+
+        </div>
+    </div>
+
+    <div class="home">
+        <button>Reiniciar Quizz</button>
+        <p>Voltar pra home</p>
+    </div>`
+} */
 
 function telaInicial() {
     body.innerHTML = `
@@ -195,4 +188,3 @@ function todosQuizzes() {
             </div>`
     }
 }
-

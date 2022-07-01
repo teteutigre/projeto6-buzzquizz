@@ -38,7 +38,7 @@ body {
   justify-content: center;
 }
 
-.homepage img {
+.quizz img {
   background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 65.62%, rgba(0, 0, 0, 0.8) 100%);
   border-radius: 5px;
   width: 340px;
@@ -122,10 +122,7 @@ body {
 .tema {
   height: 227px;
   width: 100%;
-
-  top: 69px;
-  left: 0px;
-
+  margin-top: 69px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -134,9 +131,7 @@ body {
 .tema img {
   height: 227px;
   width: 100%;
-
-  position: relative;
-  background: linear-gradient(to left, rgba(0, 0, 0, 0.57), rgba(0, 0, 0, 0.57)),;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.60), rgba(0, 0, 0, 0.6)0);
 }
 
 .tema h2 {
@@ -144,9 +139,7 @@ body {
   font-weight: 400;
   font-size: 39px;
   line-height: 46px;
-
   color: #ffffff;
-
   position: absolute;
 }
 
@@ -158,10 +151,11 @@ body {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  background-color: #FFFFFF;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
 }
 
-.topo-quizz-1,
-.topo-quizz-2 {
+.topo-quizz {
   height: 138px;
   width: 688px;
 
@@ -174,12 +168,8 @@ body {
   align-items: center;
 }
 
-.topo-quizz-1 {
+.topo-quizz {
   background-color: #434ca0;
-}
-
-.topo-quizz-2 {
-  background-color: #a0438d;
 }
 
 .perguntas-img {
