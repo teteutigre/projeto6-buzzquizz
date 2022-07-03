@@ -109,6 +109,7 @@ body {
   border-radius: 5px;
   width: 340px;
   height: 181px;
+  object-fit: cover;
 }
 
 .container.proprio {
@@ -151,7 +152,6 @@ body {
   height: 227px;
   width: 100%;
   margin-top: 69px;
-  padding: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -167,8 +167,10 @@ body {
   font-weight: 400;
   font-size: 39px;
   line-height: 46px;
+  padding: 10px;
   color: #ffffff;
   position: absolute;
+  text-align: center;
 }
 
 .telaQuizz {
@@ -198,7 +200,6 @@ body {
   font-size: 23px;
   font-weight: 700;
   color: #FFFFFF;
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -218,12 +219,16 @@ body {
   gap: 20px;
 }
 
-.resposta.true.revelada {
+.resposta.true.revelada p {
   color: #009C22
 }
 
-.resposta.false.revelada {
+.resposta.false.revelada p {
   color: #FF4B4B;
+}
+
+.resposta.ocultada {
+  opacity: 0.5;
 }
 
 .resposta p {
@@ -235,10 +240,11 @@ body {
   word-break: break-word;
 }
 
-.perguntas-img img {
+.resposta img {
   height: 175px;
   width: 330px;
   margin-bottom: 7px;
+  object-fit: cover;
 }
 
 .resultado {
@@ -440,7 +446,19 @@ input::placeholder {
     width: 100%;
   }
 
-  .quizz-quadro>div {
+  .topo-quizz {
+    width: 100%;
+  }
+
+  .perguntas-img {
+    width: 100%;
+  }
+
+  .resposta {
+    width: 48%;
+  }
+
+  .resposta img {
     width: 100%;
   }
 
@@ -452,5 +470,11 @@ input::placeholder {
 
   .criando-quizz input {
     width: 95vw;
+  }
+}
+
+@media (max-width: 570px) {
+  .resposta {
+    width: 100%;
   }
 }

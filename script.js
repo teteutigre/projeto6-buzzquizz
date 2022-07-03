@@ -109,11 +109,11 @@ function inserirPergunta() {
             <div class="perguntas-img p${i + 1}">
             </div>
         </div>`
-        for (let j = 0; j < quizzAtivo.questions[i].answers.length; j++) {
+        for (const element of quizzAtivo.questions[i].answers) {
             embaralhamento.push(`
-                <div class="resposta ${j + 1} p${i + 1} ${quizzAtivo.questions[i].answers[j].isCorrectAnswer}" onclick="conferirResposta(this)">
-                    <img src="${quizzAtivo.questions[i].answers[j].image}" alt="">
-                    <p>${quizzAtivo.questions[i].answers[j].text}</p>
+                <div class="resposta p${i + 1} ${element.isCorrectAnswer}" onclick="conferirResposta(this)">
+                    <img src="${element.image}" alt="">
+                    <p>${element.text}</p>
                 </div>`);
         }
         embaralhamento.sort(aleatorio);
@@ -125,24 +125,27 @@ function inserirPergunta() {
 }
 
 function conferirResposta(resposta) {
-    resposta.classList.add('escolhida');
-    resposta.classList.add('revelada');
-    contadorRespondidas += 1;
-    if (resposta.classList.contains(true)) {
-        contadorAcertos += 1;
-    }
-    for (let i = 0; i < quizzAtivo.questions[i].answers; i++) {
-        let respTemp = document.querySelector(`.resposta.${i + 1}`)
-        if (!respTemp.classList.contains('escolhida')) {
-            document.querySelector(`.resposta.${i + 1}`).classList.add('ocultada')
-            document.querySelector(`.resposta.${i + 1}`).classList.add('revelada')
-
+    if (!resposta.classList.contains('revelada')) {
+        console.log('conferi')
+        resposta.classList.add('escolhida');
+        resposta.classList.add('revelada');
+        contadorRespondidas += 1;
+        if (resposta.classList.contains(true)) {
+            contadorAcertos += 1;
         }
+        let paiTemp = resposta.parentNode
+        let respTemp = paiTemp.children;
+        for (const element of respTemp) {
+            if (!element.classList.contains('escolhida')) {
+                element.classList.add('ocultada')
+                element.classList.add('revelada')
+            }
+        }
+        if (contadorRespondidas < numeroPerguntas) {
+            setTimeout(scrollResposta, 2000);
+        }
+        mostrarResultado();
     }
-    if (contadorRespondidas < numeroPerguntas) {
-        setTimeout(scrollResposta, 2000);
-    }
-    mostrarResultado();
 }
 
 
