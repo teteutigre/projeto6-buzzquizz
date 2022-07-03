@@ -1,37 +1,12 @@
-let tituloQuizz = document.querySelector(".tituloQuizz");
-let urlQuizz = document.querySelector(".url-quizz");
-let quantidadePerguntas = document.querySelector(".quantidade-perguntas");
-let quantidadeNiveis = document.querySelector(".quantidade-niveis");
-
-function proseguirParaCriar() {
-    tituloQuizz = tituloQuizz.innerHTML
-    if (
-        tituloQuizz ||
-        urlQuizz ||
-        quantidadePerguntas ||
-        quantidadeNiveis !== ""
-    ) {
-        console.log(tituloQuizz);
-        console.log(urlQuizz);
-        console.log(quantidadePerguntas);
-        console.log(quantidadeNiveis);
-    } else {
-        console.log("tudo ok");
-    }
-}
-
-
-
-//localStorage.setItem(`quizzProprio${localStorage.length}`,quizzCriado.id); 
-localStorage.getItem("id");
-localStorage.removeItem("id");
 let servidor = "https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes";
 let todosQuizz = [];
 let quizzID;
 let quizzAtivo = [];
 const body = document.querySelector("body");
 let embaralhamento = [];
-let numeroRespostas;
+let numeroPerguntas;
+let contadorRespondidas;
+let contadorAcertos;
 
 
 let promise = axios.get(servidor);
@@ -43,9 +18,27 @@ promise.catch((erro) => console.log(erro));
 
 
 function telaCriarQuizz() {
-    document.querySelector('.main').innerHTML = `
-tela de criação de um quizz
-`
+    body.innerHTML = `
+    <div class="top-bar">
+        <h1>BuzzQuizz</h1>
+    </div>
+    <div class="main">
+        <div class="desktop-8">
+            <div>
+                <h2>Comece pelo começo</h2>
+                <div class="criando-quizz">
+                    <input class="titulo-quizz" placeholder="Título do seu quizz" type="">
+                    <input class="url-quizz" placeholder="URL da imagem do seu quizz" type="">
+                    <input class="quantidade-perguntas" placeholder="Quantidade de perguntas do quizz" type="">
+                    <input class="quantidade-niveis" placeholder="Quantidade de níveis do quizz" type="">
+                </div>
+            </div>
+
+            <button onclick="criarPerguntas()">
+                Prosseguir pra criar perguntas
+            </button>
+        </div>
+    </div>`
 }
 
 function pegarQuizz(element) {
@@ -59,24 +52,29 @@ function pegarQuizz(element) {
 }
 
 function telaQuizz() {
+    numeroPerguntas = quizzAtivo.questions.length;
+    bubbleSort(quizzAtivo.levels);
     body.innerHTML = `
     <div class="top-bar">
         <h1>BuzzQuizz</h1>
     </div>
-    <div class="tema">
-        <img src="${quizzAtivo.image}"
-        alt="">
-        <h2>${quizzAtivo.title}</h2>
-    </div>
     
     <div class="main">
-        <div class="telaQuizz">
+        <div class="tema">
+            <img src="${quizzAtivo.image}"alt="">
+            <div class="degrade"></div>
+            <h2>${quizzAtivo.title}</h2>
         </div>
+            <div class="telaQuizz">
+            </div>
     </div>`
     inserirPergunta();
+    document.querySelector('.main').scrollIntoView();
+    contadorRespondidas = 0;
+    contadorAcertos = 0;
 }
 
-function inserirPergunta() {
+/* function inserirPergunta() {
     for (let i = 0; i < quizzAtivo.questions.length; i++) {
         document.querySelector('.telaQuizz').innerHTML += `
         <div class="quizz-quadro p${i + 1}">
@@ -88,7 +86,7 @@ function inserirPergunta() {
         </div>`
         for (const element of quizzAtivo.questions[i].answers) {
             embaralhamento.push(`
-                <div class="resposta">
+                <div class="resposta ${element.isCorrectAnswer}" onclick="conferirResposta()">
                     <img src="${element.image}" alt="">
                     <p>${element.text}</p>
                 </div>`);
@@ -99,40 +97,125 @@ function inserirPergunta() {
         }
         embaralhamento = [];
     }
+} */
+
+function inserirPergunta() {
+    for (let i = 0; i < quizzAtivo.questions.length; i++) {
+        document.querySelector('.telaQuizz').innerHTML += `
+        <div class="quizz-quadro p${i + 1}">
+            <div class="topo-quizz p${i + 1}">
+                <span>${quizzAtivo.questions[i].title}</span>
+            </div>
+            <div class="perguntas-img p${i + 1}">
+            </div>
+        </div>`
+        for (let j = 0; j < quizzAtivo.questions[i].answers.length; j++) {
+            embaralhamento.push(`
+                <div class="resposta ${j + 1} p${i + 1} ${quizzAtivo.questions[i].answers[j].isCorrectAnswer}" onclick="conferirResposta(this)">
+                    <img src="${quizzAtivo.questions[i].answers[j].image}" alt="">
+                    <p>${quizzAtivo.questions[i].answers[j].text}</p>
+                </div>`);
+        }
+        embaralhamento.sort(aleatorio);
+        for (const element of embaralhamento) {
+            document.querySelector(`.perguntas-img.p${i + 1}`).innerHTML += element;
+        }
+        embaralhamento = [];
+    }
+}
+
+function conferirResposta(resposta) {
+    resposta.classList.add('escolhida');
+    resposta.classList.add('revelada');
+    contadorRespondidas += 1;
+    if (resposta.classList.contains(true)) {
+        contadorAcertos += 1;
+    }
+    for (let i = 0; i < quizzAtivo.questions[i].answers; i++) {
+        let respTemp = document.querySelector(`.resposta.${i + 1}`)
+        if (!respTemp.classList.contains('escolhida')) {
+            document.querySelector(`.resposta.${i + 1}`).classList.add('ocultada')
+            document.querySelector(`.resposta.${i + 1}`).classList.add('revelada')
+
+        }
+    }
+    if (contadorRespondidas < numeroPerguntas) {
+        setTimeout(scrollResposta, 2000);
+    }
+    mostrarResultado();
+}
+
+
+function scrollResposta() {
+    document.querySelector(`.quizz-quadro.p${contadorRespondidas + 1}`).scrollIntoView({ block: "center", behavior: "smooth" })
 }
 
 function aleatorio() {
     return Math.random() - 0.5;
 }
 
-/* PRECISA SER FINALIZADO
-if (numeroRespostas === quizzAtivo.questions.length) {
-    "conferir numero de acertos vs niveis e determinar qual exibir"
-    mostrarResultado();
+function bubbleSort(items) {
+    let length = items.length;
+    for (let i = 0; i < length; i++) {
+        for (let j = 0; j < (length - i - 1); j++) {
+            if (items[j].minValue >= items[j + 1].minValue) {
+                let tmp = items[j];
+                items[j] = items[j + 1];
+                items[j + 1] = tmp;
+            }
+        }
+    }
 }
 
 function mostrarResultado() {
-    body.innerHTML += `
-    <div class="resultado">
-        <div class="topo-resultado">
-            <span>88% de acerto: ${quizzAtivo.levels[0].title}</span>
-        </div>
+    if (contadorRespondidas === numeroPerguntas) {
+        let resultado = ((contadorAcertos / numeroPerguntas) * 100).toFixed(0);
+        if (resultado >= Number(quizzAtivo.levels[quizzAtivo.levels.length - 1].minValue)) {
+            document.querySelector('.telaQuizz').innerHTML += `
+                <div class="resultado">
+                    <div class="topo-resultado">
+                        <span>${resultado}% de acerto: ${quizzAtivo.levels[quizzAtivo.levels.length - 1].title}</span>
+                    </div>
 
-        <div class="resultado-msg">
-            <div>
-                <img src="${quizzAtivo.levels[0].image}" alt="">
-            </div>
+                    <div class="resultado-msg">
+                        <img src="${quizzAtivo.levels[quizzAtivo.levels.length - 1].image}" alt="">
+                        <h3>${quizzAtivo.levels[quizzAtivo.levels.length - 1].text}</h3>
+                    </div>
+                </div>
 
-            <h3>${quizzAtivo.levels[0].text}</h3>
+                <div class="home">
+                    <button onclick="telaQuizz()">Reiniciar Quizz</button>
+                    <button onclick="telaInicial()">Voltar pra home</button>
+                </div>`
+        } else {
+            for (let i = 0; i < quizzAtivo.levels.length; i++) {
+                if (resultado >= quizzAtivo.levels[i].minValue && resultado < quizzAtivo.levels[i + 1].minValue) {
+                    document.querySelector('.telaQuizz').innerHTML += `
+                 <div class="resultado">
+                     <div class="topo-resultado">
+                         <span>${resultado}% de acerto: ${quizzAtivo.levels[i].title}</span>
+                     </div>
 
-        </div>
-    </div>
+                     <div class="resultado-msg">
+                         <img src="${quizzAtivo.levels[i].image}" alt="">
+                         <h3>${quizzAtivo.levels[i].text}</h3>
+                     </div>
+                 </div>
 
-    <div class="home">
-        <button>Reiniciar Quizz</button>
-        <button onclick="telaInicial()">Voltar pra home</button>
-    </div>`
-} */
+                 <div class="home">
+                     <button onclick="telaQuizz()">Reiniciar Quizz</button>
+                     <button onclick="telaInicial()">Voltar pra home</button>
+                 </div>`
+                }
+            }
+        }
+        setTimeout(scrollResultado, 2000);
+    }
+}
+
+function scrollResultado() {
+    document.querySelector('.resultado').scrollIntoView({ block: "center", behavior: "smooth" })
+}
 
 function telaInicial() {
     if (localStorage.length === 0) {
@@ -157,43 +240,49 @@ function telaInicial() {
         </div >
     </div >`
     } else {
-        //quizzesProprios();
         body.innerHTML = `
-    <div class="top-bar">
-        <h1>BuzzQuizz</h1>
-    </div>
-    <div class="main">
-        <div class="homepage">
-            <div class="container proprio">
-                <div class="titulo">
-                    <h2>Seus Quizzes</h2>
-                    <ion-icon name="add-circle" onclick="telaCriarQuizz()"></ion-icon>
+        <div class="top-bar">
+            <h1>BuzzQuizz</h1>
+        </div>
+        <div class="main">
+            <div class="homepage">
+                <div class="container proprio">
+                    <div class="titulo">
+                        <h2>Seus Quizzes</h2>
+                        <ion-icon name="add-circle" onclick="telaCriarQuizz()"></ion-icon>
+                    </div>
+                    <div class="container-quizz proprio">
+                    </div>
                 </div>
-                <div class="container-quizz proprio">
-                </div>
-            </div>
 
-            <div class="container todos">
-                <div class="titulo">
-                    <h2>Todos os Quizzes</h2>
+                <div class="container todos">
+                    <div class="titulo">
+                        <h2>Todos os Quizzes</h2>
+                    </div>
+                    <div class="container-quizz todos">
+                    </div >
                 </div>
-                <div class="container-quizz todos">
-                </div >
-            </div>
-        </div >
-    </div >`
+            </div >
+        </div >`
+        quizzesProprios();
     }
     todosQuizzes();
+    document.querySelector('.main').scrollIntoView();
 }
 
 function quizzesProprios() {
+    console.log('function ok')
     for (let i = 0; i < localStorage.length; i++) {
-        for (let j = 0; j < todosQuizz.length; j++) {
-            if (localStorage[i] === todosQuizz[j].id) {
+        console.log('iteração localStorage ok')
+        for (const element2 of todosQuizz) {
+            console.log('iteração todosQuizz ok')
+            if (Number(localStorage.getItem(i)) === element2.id) {
+                console.log('não tá entrando aqui')
                 document.querySelector('.container-quizz.proprio').innerHTML += `
                 <div class="quizz" onclick="pegarQuizz(this)">
-                <img src="${todosQuizz[j].image}" alt="${todosQuizz[j].id}"/>
-                <h4>${todosQuizz[j].title}</h4>
+                    <img src="${element2.image}" alt="${element2.id}"/>
+                    <div class="degrade"></div>
+                    <h4>${element2.title}</h4>
                 </div>`
             }
         }
@@ -204,8 +293,9 @@ function todosQuizzes() {
     for (const element of todosQuizz) {
         document.querySelector('.container-quizz.todos').innerHTML += `
             <div class="quizz" onclick="pegarQuizz(this)">
-            <img src="${element.image}" alt="${element.id}"/>
-            <h4>${element.title}</h4>
+                <img src="${element.image}" alt="${element.id}"/>
+                <div class="degrade"></div>
+                <h4>${element.title}</h4>
             </div>`
     }
 }
