@@ -296,16 +296,14 @@ function FinalizarQuizz(esconderDesktop10) {
         );
       }
     } else {
-      const levels = [
-        {
-          title: inputsNiveis[0].value,
-          image: inputsNiveis[2].value,
-          text: inputsNiveis[3].value,
-          minValue: inputsNiveis[1].value,
-        },
-      ];
-
-      console.log(levels);
+      const levels = {
+        title: inputsNiveis[0].value,
+        image: inputsNiveis[2].value,
+        text: inputsNiveis[3].value,
+        minValue: inputsNiveis[1].value,
+      };
+      quizzInformacoes.levels = [];
+      quizzInformacoes.levels.push(levels);
 
       console.log(quizzInformacoes);
     }
@@ -334,12 +332,15 @@ function desktop11() {
   `;
 }
 
-/* const promessa = axios.get(
-  "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes"
+const requisicao = axios.post(
+  "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes",
+  quizzInformacoes
 );
+
+/* promessa = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
+
 promessa.then((elemento) => {
   elemento.data.forEach((valor) => {
     console.log(valor);
   });
-});
- */
+}); */
