@@ -156,14 +156,13 @@ function criarNiveis(criarNiveis) {
         answers: [
           {
             text: inputsCorreta[0].value,
-            imagem: inputsCorreta[1].value,
+            image: inputsCorreta[1].value,
             isCorrectAnswer: true,
           },
         ],
       };
       let verificador = false;
       inputsIncorretas.forEach((element, indice, array) => {
-        console.log("oi");
         if (indice % 2 === 0) {
           if (element.value) {
             verificador = true;
@@ -281,9 +280,8 @@ function FinalizarQuizz(esconderDesktop10) {
       alert("A descricao deve ter no minimo 30 caracteres");
     } else if (Number(inputsNiveis[1].value) !== 0) {
       contador += 1;
-      console.log(contador);
+
       if (porcentagemAcerto.length === contador) {
-        console.log("Ta indo ");
         alert(
           "É obrigatório existir pelo menos 1 nível cuja % de acerto mínima seja 0%"
         );
@@ -295,19 +293,15 @@ function FinalizarQuizz(esconderDesktop10) {
           minValue: Number(inputsNiveis[1].value),
         };
 
-        console.log(obj1);
         quizzInformacoes.levels.push(obj1);
       }
     } else {
-      console.log(inputsNiveis[0]);
-
       const obj2 = {
         title: inputsNiveis[0].value,
         image: inputsNiveis[2].value,
         text: inputsNiveis[3].value,
         minValue: Number(inputsNiveis[1].value),
       };
-      console.log(obj2);
       quizzInformacoes.levels.push(obj2);
 
       const esconder = esconderDesktop10.parentNode;
@@ -317,17 +311,10 @@ function FinalizarQuizz(esconderDesktop10) {
     }
   });
 
-  axios
-    .post(
-      "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes",
-      quizzInformacoes
-    )
-    .then((x) => {
-      console.log(x);
-    })
-    .catch(() => {
-      console.log("homem depressivo triste");
-    });
+  axios.post(
+    "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes",
+    quizzInformacoes
+  );
 }
 
 function desktop11() {
@@ -342,16 +329,5 @@ function desktop11() {
 
   <span>Voltar pra home</span>
   </div>
-
-  
-  
   `;
 }
-
-/* promessa = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
-
-promessa.then((elemento) => {
-  elemento.data.forEach((valor) => {
-    console.log(valor);
-  });
-}); */
