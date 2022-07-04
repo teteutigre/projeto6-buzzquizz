@@ -1,3 +1,15 @@
+let servidor = "https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes";
+let todosQuizz = [];
+let quizzAtivo = [];
+let quizzID;
+let quizzesProprios = [];
+let storage = [];
+let embaralhamento = [];
+let numeroPerguntas;
+let contadorRespondidas;
+let contadorAcertos;
+let promise;
+
 promise = axios.get(servidor);
 promise.then((resposta) => {
   todosQuizz = resposta.data;
@@ -11,7 +23,10 @@ for (const elementProprio of quizzProprioID) {
   promise.then((resposta) => {
     quizzesProprios.push(resposta.data);
   });
-  promise.catch((erro) => console.log(erro));
+  promise.catch((erro) => {
+    console.log(erro);
+    window.location.reload();
+  });
 }
 
 function telaCriarQuizz() {
