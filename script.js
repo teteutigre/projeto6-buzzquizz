@@ -353,9 +353,12 @@ function criarPerguntas() {
 }
 function desktop9() {
   const desktop9 = document.querySelector("body");
-  desktop9.innerHTML += `<div class="desktop-9">
+  desktop9.innerHTML += `
+    <div class="main">
+      <div class="desktop-9">
         <h1>Crie suas perguntas</h1>
-        </div>`;
+      </div>
+    </div>`;
 
   for (i = 0; quantidadePerguntas > i; i++) {
     const addPerguntas = document.querySelector(".desktop-9");
@@ -518,9 +521,12 @@ function criarNiveis(criarNiveis) {
 
 function desktop10() {
   const desktop10 = document.querySelector("body");
-  desktop10.innerHTML += `<div class="desktop-10">
+  desktop10.innerHTML += `
+    <div class="main">
+      <div class="desktop-10">
         <h1>Agora, decida os níveis</h1>
-        </div>`;
+      </div>
+    </div>`;
 
   for (i = 0; quantidadeNiveis > i; i++) {
     const addNiveis = document.querySelector(".desktop-10");
@@ -623,23 +629,26 @@ function FinalizarQuizz(esconderDesktop10) {
     }
   });
 
-  axios.post(
+  promise = axios.post(
     "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes",
     quizzInformacoes
   );
+  promise.then(() => console.log(promise));
 }
 
 function desktop11() {
-  document.querySelector("body").innerHTML += `<div class="desktop-11">
-    <h1>Seu quizz está pronto!</h1>
-    <div class="seu-quizz">
+  document.querySelector("body").innerHTML += `
+  <div class="main">
+    <div class="desktop-11">
+      <h1>Seu quizz está pronto!</h1>
+      <div class="seu-quizz">
         <img src=${urlQuizz} alt="">
         <p>${tituloQuizz}</p>
+      </div>
+
+      <button onclick="telaQuizz()">Acessar Quizz</button>
+
+      <span onclick="telaInicial()">Voltar pra home</span>
     </div>
-
-    <button>Acessar Quizz</button>
-
-  <span>Voltar pra home</span>
-  </div>
-  `;
+  </div>`;
 }
