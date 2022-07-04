@@ -2,20 +2,30 @@ let servidor = "https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes";
 let todosQuizz = [];
 let quizzAtivo = [];
 let quizzID;
-let quizzTemp = [];
-let Storage = [];
+let quizzesProprios = [];
+let storage = [];
 let embaralhamento = [];
 let numeroPerguntas;
 let contadorRespondidas;
 let contadorAcertos;
+let promise;
 
 
-let promise = axios.get(servidor);
+promise = axios.get(servidor);
 promise.then((resposta) => {
     todosQuizz = resposta.data;
     telaInicial();
 })
 promise.catch((erro) => console.log(erro));
+
+let quizzProprioID = JSON.parse(localStorage.getItem("id"));
+for (const elementProprio of quizzProprioID) {
+    promise = axios.get(`${servidor}/${elementProprio}`);
+    promise.then((resposta) => {
+        quizzesProprios.push(resposta.data);
+    })
+    promise.catch((erro) => console.log(erro));
+}
 
 
 function telaCriarQuizz() {
@@ -247,11 +257,9 @@ function telaInicial() {
 }
 
 function carregarQuizzes() {
-    let quizzProprio = JSON.parse(localStorage.getItem("id"));
-    console.log(quizzProprio);
-    if (quizzProprio !== null) {
+    if (quizzProprioID !== null) {
         for (const elementTodos of todosQuizz) {
-            if (!quizzProprio.includes(elementTodos.id)) {
+            if (!quizzProprioID.includes(elementTodos.id)) {
                 document.querySelector('.container-quizz.todos').innerHTML += `
                     <div class="quizz" onclick="pegarQuizz(this)">
                         <img src="${elementTodos.image}" alt="${elementTodos.id}"/>
@@ -259,16 +267,14 @@ function carregarQuizzes() {
                         <h4>${elementTodos.title}</h4>
                     </div>`
             }
-            for (const elementProprio of quizzProprio) {
-                if (elementProprio === elementTodos.id) {
-                    document.querySelector('.container-quizz.proprio').innerHTML += `
-                    <div class="quizz" onclick="pegarQuizz(this)">
-                        <img src="${elementTodos.image}" alt="${elementTodos.id}"/>
-                        <div class="degrade"></div>
-                        <h4>${elementTodos.title}</h4>
-                    </div>`
-                }
-            }
+        }
+        for (const elementProprio of quizzesProprios) {
+            document.querySelector('.container-quizz.proprio').innerHTML += `
+                <div class="quizz" onclick="pegarQuizz(this)">
+                    <img src="${elementProprio.image}" alt="${elementProprio.id}"/>
+                    <div class="degrade"></div>
+                    <h4>${elementProprio.title}</h4>
+                </div>`
         }
     } else {
         for (const elementTodos of todosQuizz) {
