@@ -24,7 +24,10 @@ for (const elementProprio of quizzProprioID) {
     promise.then((resposta) => {
         quizzesProprios.push(resposta.data);
     })
-    promise.catch((erro) => console.log(erro));
+    promise.catch((erro) => {
+        console.log(erro);
+        window.location.reload();
+    })
 }
 
 
