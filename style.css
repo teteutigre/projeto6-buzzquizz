@@ -64,6 +64,10 @@ body {
   align-items: center;
 }
 
+.homepage>div {
+  width: 100%;
+}
+
 .homepage h4 {
   color: #FFFFFF;
   font-size: 19px;
@@ -194,7 +198,7 @@ body {
 }
 
 .topo-quizz {
-  height: 138px;
+  min-height: 138px;
   width: 688px;
   padding: 10px;
   font-size: 23px;
@@ -262,12 +266,13 @@ body {
 .resultado-msg {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   gap: 21px;
+  margin-top: 20px;
 }
 
 .topo-resultado {
-  height: 99px;
+  min-height: 99px;
   width: 727px;
   padding: 10px;
   display: flex;
@@ -277,18 +282,20 @@ body {
   color: #FFFFFF;
   font-weight: 700;
   font-size: 23px;
+  word-break: break-word;
 }
 
 .resultado img {
   height: 273px;
   width: 364px;
+  object-fit: cover;
 }
 
 .resultado h3 {
-  height: 273px;
   font-weight: 700;
   font-size: 19px;
   line-height: 25px;
+  margin: 0;
   color: #484848;
   word-break: break-word;
 }
@@ -442,24 +449,17 @@ input::placeholder {
     width: 100vw;
   }
 
-  .quizz-quadro {
-    width: 100%;
-  }
-
-  .topo-quizz {
-    width: 100%;
-  }
-
-  .perguntas-img {
+  .quizz-quadro,
+  .resultado,
+  .topo-quizz,
+  .topo-resultado,
+  .perguntas-img,
+  .resposta img {
     width: 100%;
   }
 
   .resposta {
     width: 48%;
-  }
-
-  .resposta img {
-    width: 100%;
   }
 
   /* TELA CRIAR QUIZZ */
@@ -476,5 +476,9 @@ input::placeholder {
 @media (max-width: 570px) {
   .resposta {
     width: 100%;
+  }
+
+  .resultado-msg {
+    display: flex;
   }
 }
