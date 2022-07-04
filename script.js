@@ -19,14 +19,14 @@ promise.catch((erro) => console.log(erro));
 
 let quizzProprioID = JSON.parse(localStorage.getItem("id"));
 for (const elementProprio of quizzProprioID) {
-    promise = axios.get(`${servidor}/${elementProprio}`);
-    promise.then((resposta) => {
-        quizzesProprios.push(resposta.data);
-    })
-    promise.catch((erro) => {
-        console.log(erro);
-        window.location.reload();
-    })
+  promise = axios.get(`${servidor}/${elementProprio}`);
+  promise.then((resposta) => {
+    quizzesProprios.push(resposta.data);
+  })
+  promise.catch((erro) => {
+    console.log(erro);
+    window.location.reload();
+  })
 }
 
 function telaCriarQuizz() {
@@ -90,9 +90,8 @@ function inserirPergunta() {
   for (let i = 0; i < quizzAtivo.questions.length; i++) {
     document.querySelector(".telaQuizz").innerHTML += `
         <div class="quizz-quadro p${i + 1}">
-            <div class="topo-quizz p${i + 1}" style="background-color: ${
-      quizzAtivo.questions[i].color
-    }">
+            <div class="topo-quizz p${i + 1}" style="background-color: ${quizzAtivo.questions[i].color
+      }">
                 <span>${quizzAtivo.questions[i].title}</span>
             </div>
             <div class="perguntas-img p${i + 1}">
@@ -100,9 +99,8 @@ function inserirPergunta() {
         </div>`;
     for (const element of quizzAtivo.questions[i].answers) {
       embaralhamento.push(`
-                <div class="resposta p${i + 1} ${
-        element.isCorrectAnswer
-      }" onclick="conferirResposta(this)">
+                <div class="resposta p${i + 1} ${element.isCorrectAnswer
+        }" onclick="conferirResposta(this)">
                     <img src="${element.image}" alt="">
                     <p>${element.text}</p>
                 </div>`);
@@ -171,18 +169,15 @@ function mostrarResultado() {
       document.querySelector(".telaQuizz").innerHTML += `
                 <div class="resultado">
                     <div class="topo-resultado">
-                        <span>${resultado}% de acerto: ${
-        quizzAtivo.levels[quizzAtivo.levels.length - 1].title
-      }</span>
+                        <span>${resultado}% de acerto: ${quizzAtivo.levels[quizzAtivo.levels.length - 1].title
+        }</span>
                     </div>
 
                     <div class="resultado-msg">
-                        <img src="${
-                          quizzAtivo.levels[quizzAtivo.levels.length - 1].image
-                        }" alt="">
-                        <h3>${
-                          quizzAtivo.levels[quizzAtivo.levels.length - 1].text
-                        }</h3>
+                        <img src="${quizzAtivo.levels[quizzAtivo.levels.length - 1].image
+        }" alt="">
+                        <h3>${quizzAtivo.levels[quizzAtivo.levels.length - 1].text
+        }</h3>
                     </div>
                 </div>
 
@@ -310,10 +305,10 @@ function carregarQuizzes() {
 }
 
 //_____________________________________________________________________________________________
-let tituloQuizz = document.querySelector(".titulo-quizz").value;
-let urlQuizz = document.querySelector(".url-quizz").value;
-let quantidadePerguntas = document.querySelector(".quantidade-perguntas").value;
-let quantidadeNiveis = document.querySelector(".quantidade-niveis").value;
+let tituloQuizz;
+let urlQuizz;
+let quantidadePerguntas;
+let quantidadeNiveis;
 let i;
 
 function imagem(url) {
@@ -342,8 +337,8 @@ function criarPerguntas() {
   } else if (isNaN(quantidadeNiveis)) {
     alert("Quantidades de níveis deve ser um numero");
   } else {
-    const add = document.querySelector(".gaveta-desktop-8");
-    add.classList.add("escoder");
+    const add = document.querySelector(".desktop-8");
+    add.classList.add("esconder");
 
     quizzInformacoes.title = tituloQuizz;
     quizzInformacoes.image = urlQuizz;
@@ -353,7 +348,11 @@ function criarPerguntas() {
 }
 function desktop9() {
   const desktop9 = document.querySelector("body");
-  desktop9.innerHTML += `
+  desktop9.innerHTML = `
+    <div class="top-bar">
+        <h1>BuzzQuizz</h1>
+    </div>
+
     <div class="main">
       <div class="desktop-9">
         <h1>Crie suas perguntas</h1>
@@ -378,9 +377,9 @@ function desktop9() {
 /*                 desktop-8                          */
 
 function barraDeCriacao(elemento) {
-  const escoderElemento = elemento.parentNode;
-  escoderElemento.classList.add("escoder");
-  escoderElemento.classList.remove("pre-barra-de-criacao");
+  const esconderElemento = elemento.parentNode;
+  esconderElemento.classList.add("esconder");
+  esconderElemento.classList.remove("pre-barra-de-criacao");
 
   const pegaElemento = elemento.parentNode.parentNode;
 
@@ -514,7 +513,7 @@ function criarNiveis(criarNiveis) {
     }
   });
   const esconderDesktop9 = criarNiveis.parentNode;
-  esconderDesktop9.classList.add("escoder");
+  esconderDesktop9.classList.add("esconder");
   esconderDesktop9.classList.remove("desktop-9");
   desktop10();
 }
@@ -544,9 +543,9 @@ function desktop10() {
 }
 
 function BarraDeNiveis(elemento) {
-  const escoderElemento = elemento.parentNode;
-  escoderElemento.classList.add("escoder");
-  escoderElemento.classList.remove("pre-barra-de-criacao");
+  const esconderElemento = elemento.parentNode;
+  esconderElemento.classList.add("esconder");
+  esconderElemento.classList.remove("pre-barra-de-criacao");
 
   const seguir = elemento.parentNode.parentNode;
   seguir.classList.add("verificado");
@@ -623,17 +622,22 @@ function FinalizarQuizz(esconderDesktop10) {
       quizzInformacoes.levels.push(obj2);
 
       const esconder = esconderDesktop10.parentNode;
-      esconder.classList.add("escoder");
+      esconder.classList.add("esconder");
       esconder.classList.remove("desktop-10");
-      desktop11();
     }
   });
 
   promise = axios.post(
-    "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes",
+    "https://mock-api.driven.com.br/api/v7/buzzquizz/quizzes",
     quizzInformacoes
   );
-  promise.then(() => console.log(promise));
+  promise.then((resposta) => {
+  quizzAtivo = resposta.data;
+  storage = JSON.parse(localStorage.getItem('id'));
+  storage.push(quizzAtivo.id);
+  localStorage.setItem("id", JSON.stringify(storage));
+  desktop11();
+})
 }
 
 function desktop11() {
