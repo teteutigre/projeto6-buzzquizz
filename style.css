@@ -9,6 +9,10 @@
   cursor: pointer
 }
 
+.esconder {
+  display: none;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
   background-color: #E5E5E5;
@@ -349,7 +353,9 @@ body {
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
 }
 
-.desktop-8 {
+.desktop-8,
+.desktop-9,
+.desktop-10 {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -357,7 +363,6 @@ body {
 }
 
 .desktop-8 h2 {
-  font-family: "Roboto";
   font-style: normal;
   font-weight: 700;
   font-size: 23px;
@@ -373,7 +378,8 @@ body {
 }
 
 .desktop-8 input,
-.desktop-9 input {
+.desktop-9 input,
+.desktop-10 input {
   height: 46px;
   width: 564px;
 
@@ -386,7 +392,6 @@ body {
 input::placeholder {
   padding-left: 23px;
 
-  font-family: "Roboto";
   font-style: italic;
   font-weight: 400;
   font-size: 19px;
@@ -407,6 +412,229 @@ input::placeholder {
   margin-top: 85px;
   color: #fff5f4;
   background-color: #ec362d;
+}
+
+.barra-de-criacao input,
+.barra-de-criacao2 input {
+  height: 46px;
+  width: 564px;
+
+  border: solid 1px;
+  border-color: #d1d1d1;
+
+  font-size: 19px;
+
+  border-radius: 5px;
+}
+
+.barra-de-criacao p,
+.barra-de-criacao2 p,
+.desktop-10 p {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 20px;
+
+  margin: 0;
+}
+
+.desktop-9 h1,
+.desktop-10 h1 {
+  padding-top: 132px;
+  margin-bottom: 72px;
+
+  font-style: normal;
+  font-weight: 700;
+  font-size: 23px;
+}
+
+.desktop-9 p,
+.desktop-10 p {
+  font-style: normal;
+
+  font-weight: 700;
+  font-size: 20px;
+}
+
+.desktop-9 button,
+.desktop-10 button {
+  width: 355px;
+  height: 54px;
+
+  background: #ec362d;
+  border-radius: 15px;
+
+  margin-top: 59px;
+  margin-bottom: 200px;
+
+  border: none;
+
+  font-weight: 400;
+  font-size: 21px;
+
+  color: #fff5f4;
+}
+
+.barra-de-criacao,
+.barra-de-criacao2 {
+  width: 600px;
+
+  margin-bottom: 24px;
+  padding-bottom: 24px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: 28px;
+
+  padding-top: 28px;
+
+  background: #ffffff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+}
+
+.barra-de-criacao div,
+.barra-de-criacao2 div {
+  display: flex;
+  justify-content: center;
+
+  flex-direction: column;
+}
+
+.pre-barra-de-criacao {
+  width: 601px;
+  height: 74px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  padding-left: 17px;
+
+  margin-bottom: 22px;
+
+  background: #ffffff;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.05);
+}
+
+.pre-barra-de-criacao img {
+  margin-right: 17px;
+  margin-top: 12px;
+}
+
+.escondido {
+  display: none;
+}
+
+.formular-perguntas p {
+  margin-bottom: -12px;
+}
+
+.formular-perguntas,
+.resposta-correta,
+.resposta-incorreta,
+.formular-niveis {
+  display: flex;
+  align-items: flex-start;
+
+  gap: 24px;
+}
+
+.formular-perguntas div,
+.resposta-correta div,
+.resposta-incorreta div,
+.formular-niveis div {
+  gap: 14px;
+}
+
+.resposta-incorreta {
+  gap: 30px;
+}
+
+.resposta-incorreta p {
+  margin: 0;
+  margin-bottom: -10px;
+}
+
+.desktop-11 {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  padding-top: 69px;
+}
+
+.desktop-11 h1 {
+  font-style: normal;
+  font-weight: 700;
+  font-size: 23px;
+
+  margin-top: 71px;
+  margin-bottom: 46px;
+
+  color: #000000;
+}
+
+.desktop-11 p {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 23px;
+
+  margin-bottom: 9px;
+  margin-left: 23px;
+
+  color: #ffffff;
+  position: absolute;
+  z-index: 2;
+}
+
+.desktop-11 button {
+  height: 44px;
+  width: 220px;
+  border-radius: 15px;
+
+  font-style: normal;
+  font-weight: 400;
+  font-size: 21px;
+
+  color: #fff5f4;
+
+  border: none;
+
+  background-color: #ec362d;
+
+  border-radius: 15px;
+
+  margin-top: 45px;
+  margin-bottom: 9px;
+}
+
+.desktop-11 span {
+  font-style: normal;
+  font-weight: 400;
+  font-size: 21px;
+
+  color: #818181;
+}
+
+.seu-quizz img {
+  height: 266px;
+  width: 500px;
+  border-radius: 5px;
+
+  z-index: -1;
+}
+
+.seu-quizz {
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(0, 0, 0, 0.5) 65.62%,
+      rgba(0, 0, 0, 0.8) 100%);
 }
 
 @media (max-width: 1100px) {
