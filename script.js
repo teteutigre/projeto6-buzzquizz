@@ -35,20 +35,22 @@ function telaCriarQuizz() {
         <h1>BuzzQuizz</h1>
     </div>
     <div class="main">
-        <div class="desktop-8">
-            <div>
-                <h2>Comece pelo começo</h2>
-                <div class="criando-quizz">
-                    <input class="titulo-quizz" placeholder="Título do seu quizz" type="">
-                    <input class="url-quizz" placeholder="URL da imagem do seu quizz" type="">
-                    <input class="quantidade-perguntas" placeholder="Quantidade de perguntas do quizz" type="">
-                    <input class="quantidade-niveis" placeholder="Quantidade de níveis do quizz" type="">
-                </div>
-            </div>
+      <div class="gaveta-desktop-8">
+          <div class="desktop-8">
+              <div>
+                  <h2>Comece pelo começo</h2>
+                  <div class="criando-quizz">
+                      <input class="titulo-quizz" placeholder="Título do seu quizz" type="">
+                      <input class="url-quizz" placeholder="URL da imagem do seu quizz" type="">
+                      <input class="quantidade-perguntas" placeholder="Quantidade de perguntas do quizz" type="">
+                      <input class="quantidade-niveis" placeholder="Quantidade de níveis do quizz" type="">
+                  </div>
+              </div>
 
-            <button onclick="criarPerguntas()">
-                Prosseguir pra criar perguntas
-            </button>
+              <button onclick="criarPerguntas()">
+                  Prosseguir pra criar perguntas
+              </button>
+          </div>
         </div>
     </div>`;
 }
@@ -337,8 +339,8 @@ function criarPerguntas() {
   } else if (isNaN(quantidadeNiveis)) {
     alert("Quantidades de níveis deve ser um numero");
   } else {
-    const add = document.querySelector(".desktop-8");
-    add.classList.add("esconder");
+    const add = document.querySelector(".gaveta-desktop-8");
+    add.classList.add("esconder")
 
     quizzInformacoes.title = tituloQuizz;
     quizzInformacoes.image = urlQuizz;
@@ -348,11 +350,7 @@ function criarPerguntas() {
 }
 function desktop9() {
   const desktop9 = document.querySelector("body");
-  desktop9.innerHTML = `
-    <div class="top-bar">
-        <h1>BuzzQuizz</h1>
-    </div>
-
+  desktop9.innerHTML += `
     <div class="main">
       <div class="desktop-9">
         <h1>Crie suas perguntas</h1>
@@ -632,12 +630,12 @@ function FinalizarQuizz(esconderDesktop10) {
     quizzInformacoes
   );
   promise.then((resposta) => {
-  quizzAtivo = resposta.data;
-  storage = JSON.parse(localStorage.getItem('id'));
-  storage.push(quizzAtivo.id);
-  localStorage.setItem("id", JSON.stringify(storage));
-  desktop11();
-})
+    quizzAtivo = resposta.data;
+    storage = JSON.parse(localStorage.getItem('id'));
+    storage.push(quizzAtivo.id);
+    localStorage.setItem("id", JSON.stringify(storage));
+    desktop11();
+  })
 }
 
 function desktop11() {
