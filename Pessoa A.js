@@ -9,18 +9,11 @@ function imagem(url) {
 }
 
 const quizzInformacoes = {};
-
 function criarPerguntas() {
-  /* tituloQuizz = document.querySelector(".titulo-quizz").value;
+  tituloQuizz = document.querySelector(".titulo-quizz").value;
   urlQuizz = document.querySelector(".url-quizz").value;
   quantidadePerguntas = document.querySelector(".quantidade-perguntas").value;
-  quantidadeNiveis = document.querySelector(".quantidade-niveis").value; */
-
-  tituloQuizz = "Naruto nao e tao legal";
-  urlQuizz =
-    "https://rollingstone.uol.com.br/media/uploads/poster-end-of-evangelion-divulgacao.jpg";
-  quantidadePerguntas = "4";
-  quantidadeNiveis = "2";
+  quantidadeNiveis = document.querySelector(".quantidade-niveis").value;
 
   if (tituloQuizz.length < 20) {
     alert("O mínimo são 20 caracteres");
@@ -122,11 +115,6 @@ function barraDeCriacao(elemento) {
 }
 
 function criarNiveis(criarNiveis) {
-  const esconderDesktop9 = criarNiveis.parentNode;
-  esconderDesktop9.classList.add("escoder");
-  esconderDesktop9.classList.remove("desktop-9");
-  desktop10();
-
   const percorrerPai = document.querySelectorAll(".barra-de-criacao");
   percorrerPai.forEach((element) => {
     const hexadecimal = /[0-9A-Fa-f]{6}/g;
@@ -134,6 +122,7 @@ function criarNiveis(criarNiveis) {
     const inputsPerguntas = element
       .querySelector(".formular-perguntas")
       .querySelectorAll("input");
+
     const inputsCorreta = element
       .querySelector(".resposta-correta")
       .querySelectorAll("input");
@@ -174,6 +163,7 @@ function criarNiveis(criarNiveis) {
       };
       let verificador = false;
       inputsIncorretas.forEach((element, indice, array) => {
+        console.log("oi");
         if (indice % 2 === 0) {
           if (element.value) {
             verificador = true;
@@ -209,6 +199,10 @@ function criarNiveis(criarNiveis) {
       quizzInformacoes.questions.push(questoes);
     }
   });
+  const esconderDesktop9 = criarNiveis.parentNode;
+  esconderDesktop9.classList.add("escoder");
+  esconderDesktop9.classList.remove("desktop-9");
+  desktop10();
 }
 
 function desktop10() {
@@ -265,53 +259,75 @@ function FinalizarQuizz(esconderDesktop10) {
 
   let contador = 0;
 
+  quizzInformacoes.levels = [];
+
   percorrerPai.forEach((element) => {
     const inputsNiveis = element
       .querySelector(".formular-niveis")
       .querySelectorAll("input");
 
     if (inputsNiveis[0].value.length < 10) {
-      alert("O mínimo do titulo são 10 caracteres");
-    } else if (
-      Number(inputsNiveis[1].value) > 100 ||
-      Number(inputsNiveis[1].value) < 0
-    ) {
-      alert("a porcentagem deve ser um número entre 0 e 100");
+      alert("Titulo tem que possuir 10 ou mais caracteres");
+    } else if (parseFloat(inputsNiveis[1].value) > 100) {
+      alert("A porcentagem de acerto deve ser um numero entre 0 e 100");
+    } else if (parseFloat(inputsNiveis[1].value) < 0) {
+      alert("A porcentagem de acerto deve ser um numero entre 0 e 100");
     } else if (
       !imagem(inputsNiveis[2].value) &&
       !inputsNiveis[2].value.includes("https://")
     ) {
-      alert(`Coloque uma imagem em formato Url`);
+      alert("A url tem que ser uma imagem");
     } else if (inputsNiveis[3].value.length < 30) {
-      alert("A descrição tem que ter no minimo 30 caracteres");
-    } else if (inputsNiveis[1].value === "") {
-      alert("Digite uma porcentagem de acerto");
-    } else if (inputsNiveis[1].value !== "0") {
-      contador++;
+      alert("A descricao deve ter no minimo 30 caracteres");
+    } else if (Number(inputsNiveis[1].value) !== 0) {
+      contador += 1;
       console.log(contador);
-      console.log("ta entrando no !==");
-      if (contador === porcentagemAcerto.length) {
+      if (porcentagemAcerto.length === contador) {
+        console.log("Ta indo ");
         alert(
-          "É obrigatório existir pelo menos 1 nível cuja porcentagem de acerto mínima seja 0%"
+          "É obrigatório existir pelo menos 1 nível cuja % de acerto mínima seja 0%"
         );
+      } else {
+        const obj1 = {
+          title: inputsNiveis[0].value,
+          image: inputsNiveis[2].value,
+          text: inputsNiveis[3].value,
+          minValue: Number(inputsNiveis[1].value),
+        };
+
+        console.log(obj1);
+        quizzInformacoes.levels.push(obj1);
       }
     } else {
-      const levels = {
+      console.log(inputsNiveis[0]);
+
+      const obj2 = {
         title: inputsNiveis[0].value,
         image: inputsNiveis[2].value,
         text: inputsNiveis[3].value,
-        minValue: inputsNiveis[1].value,
+        minValue: Number(inputsNiveis[1].value),
       };
-      quizzInformacoes.levels = [];
-      quizzInformacoes.levels.push(levels);
+      console.log(obj2);
+      quizzInformacoes.levels.push(obj2);
 
-      console.log(quizzInformacoes);
+      const esconder = esconderDesktop10.parentNode;
+      esconder.classList.add("escoder");
+      esconder.classList.remove("desktop-10");
+      desktop11();
     }
   });
-  const esconder = esconderDesktop10.parentNode;
-  esconder.classList.add("escoder");
-  esconder.classList.remove("desktop-10");
-  desktop11();
+
+  axios
+    .post(
+      "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes",
+      quizzInformacoes
+    )
+    .then((x) => {
+      console.log(x);
+    })
+    .catch(() => {
+      console.log("homem depressivo triste");
+    });
 }
 
 function desktop11() {
@@ -331,11 +347,6 @@ function desktop11() {
   
   `;
 }
-
-const requisicao = axios.post(
-  "https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes",
-  quizzInformacoes
-);
 
 /* promessa = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
 
